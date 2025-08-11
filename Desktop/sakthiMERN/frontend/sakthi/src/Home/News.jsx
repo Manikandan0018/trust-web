@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { FaHeart, FaCommentDots } from 'react-icons/fa';
+const BaseUrl = import.meta.env.BACKEND_URL;
 
 const fetchTodos = async () => {
-  const res = await fetch('http://localhost:5000/api/auth/todoGet');
+  const res = await fetch(`${BaseUrl}/api/auth/todoGet`);
   if (!res.ok) throw new Error('Failed to fetch');
   return res.json();
 };
 
 const likePost = async ({ postId, userId }) => {
-  const res = await fetch(`http://localhost:5000/api/auth/todoLike/${postId}`, {
+  const res = await fetch(`${BaseUrl}/api/auth/todoLike/${postId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId }),
@@ -18,7 +19,7 @@ const likePost = async ({ postId, userId }) => {
 };
 
 const commentPost = async ({ postId, userId, comment }) => {
-  const res = await fetch(`http://localhost:5000/api/auth/todoComment/${postId}`, {
+  const res = await fetch(`${BaseUrl}/api/auth/todoComment/${postId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId, comment }),

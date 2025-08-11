@@ -1,14 +1,15 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+const BaseUrl = import.meta.env.BACKEND_URL;
 
 const fetchEvents = async () => {
-  const res = await fetch('http://localhost:5000/api/auth/getEvent');
+  const res = await fetch(`${BaseUrl}/api/auth/getEvent`);
   if (!res.ok) throw new Error('Failed to fetch events');
   return res.json();
 };
 
 const addEvent = async (data) => {
-  const res = await fetch('http://localhost:5000/api/auth/newEvent', {
+  const res = await fetch(`${BaseUrl}/api/auth/newEvent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -18,7 +19,7 @@ const addEvent = async (data) => {
 };
 
 const deleteEvent = async (id) => {
-  const res = await fetch(`http://localhost:5000/api/auth/deleteEvent/${id}`, {
+  const res = await fetch(`${BaseUrl}/api/auth/deleteEvent/${id}`, {
     method: 'DELETE',
   });
   if (!res.ok) throw new Error('Failed to delete event');
@@ -26,7 +27,7 @@ const deleteEvent = async (id) => {
 };
 
 const updateEvent = async ({ id, updatedData }) => {
-  const res = await fetch(`http://localhost:5000/api/auth/updateEvent/${id}`, {
+  const res = await fetch(`${BaseUrl}/api/auth/updateEvent/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedData),

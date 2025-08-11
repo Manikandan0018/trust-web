@@ -4,7 +4,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import UpdateEvent from '../Home/NewEvent';
 
-const BaseUrl = 'http://localhost:5000';
+const BaseUrl = import.meta.env.BACKEND_URL;
+
 
 const Admin = () => {
   const [text, setText] = useState('');
