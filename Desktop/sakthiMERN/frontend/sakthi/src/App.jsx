@@ -24,7 +24,7 @@ const App = () => {
   };
 
   return (
-    <Routes basename="/trust-web">
+    <Routes>
       <Route path="/" element={<HomePage />} />
       
       <Route
