@@ -7,11 +7,15 @@ const AdminLogin = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const ADMIN_NAME = import.meta.env.VITE_ADMIN_NAME;
+  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+ console.log(ADMIN_NAME)
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Dummy admin check
-    if (username === 'admin' && password === 'admin123') {
+    //  admin check
+    if (username === ADMIN_NAME && password === ADMIN_PASSWORD) {
       onLogin();
       navigate('/admin');
     } else {

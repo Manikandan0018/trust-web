@@ -4,7 +4,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import UpdateEvent from '../Home/NewEvent';
 
-const BaseUrl = import.meta.env.VITE_BACKEND_URL;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+console.log("Backend URL:", VITE_BACKEND_URL); // just to confirm
 
 
 const Admin = () => {
@@ -29,7 +30,7 @@ const Admin = () => {
   const { data: todos = [], isLoading, isError, error } = useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
-      const res = await fetch(`${BaseUrl}/api/auth/todoGet`);
+      const res = await fetch(`${VITE_BACKEND_URL}/api/auth/todoGet`);
       if (!res.ok) throw new Error('Failed to fetch todos');
       return res.json();
     },
@@ -37,7 +38,7 @@ const Admin = () => {
 
   const createTodo = useMutation({
     mutationFn: async (formData) => {
-      const res = await fetch(`${BaseUrl}/api/auth/todoPost`, {
+      const res = await fetch(`${VITE_BACKEND_URL}/api/auth/todoPost`, {
         method: 'POST',
         body: formData,
       });
@@ -55,7 +56,7 @@ const Admin = () => {
 
   const updateTodo = useMutation({
     mutationFn: async ({ id, formData }) => {
-      const res = await fetch(`${BaseUrl}/api/auth/updateTodo/${id}`, {
+      const res = await fetch(`${VITE_BACKEND_URL}/api/auth/updateTodo/${id}`, {
         method: 'PUT',
         body: formData,
       });
@@ -73,7 +74,7 @@ const Admin = () => {
 
   const deleteTodo = useMutation({
     mutationFn: async (id) => {
-      const res = await fetch(`${BaseUrl}/api/auth/todoDelete/${id}`, {
+      const res = await fetch(`${VITE_BACKEND_URL}/api/auth/todoDelete/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete news');

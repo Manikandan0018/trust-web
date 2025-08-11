@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { FaHeart, FaCommentDots } from 'react-icons/fa';
 
-const BaseUrl = import.meta.env.VITE_BACKEND_URL;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const fetchTodos = async () => {
-  const res = await fetch(`${BaseUrl}/api/auth/todoGet`);
+  const res = await fetch(`${VITE_BACKEND_URL}/api/auth/todoGet`);
   if (!res.ok) throw new Error('Failed to fetch');
   return res.json();
 };
 
 const likePost = async ({ postId, userId }) => {
-  const res = await fetch(`${BaseUrl}/api/auth/todoLike/${postId}`, {
+  const res = await fetch(`${VITE_BACKEND_URL}/api/auth/todoLike/${postId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId }),
@@ -20,7 +20,7 @@ const likePost = async ({ postId, userId }) => {
 };
 
 const commentPost = async ({ postId, userId, comment }) => {
-  const res = await fetch(`${BaseUrl}/api/auth/todoComment/${postId}`, {
+  const res = await fetch(`${VITE_BACKEND_URL}/api/auth/todoComment/${postId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId, comment }),
@@ -33,6 +33,8 @@ const News = () => {
   const [commentBoxes, setCommentBoxes] = useState({});
   const [commentTexts, setCommentTexts] = useState({});
   const userId = 'demo-user'; // Replace with real user ID
+  
+  console.log("BaseUrl is:", VITE_BACKEND_URL);
 
   const { data: todos = [], isLoading, isError, error } = useQuery({
     queryKey: ['todos'],
@@ -69,6 +71,7 @@ const News = () => {
     <section className="py-16 px-4 bg-gray-100">
       <h2 className="text-4xl font-bold text-center mb-10">
         Latest <span className="text-orange-500">News</span>
+
       </h2>
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {todos.map((post) => {
