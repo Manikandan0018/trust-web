@@ -8,21 +8,34 @@ dotenv.config();
 
 const app = express();
 
-// Enable CORS dynamically based on environment variable
-app.use(cors({ origin: process.env.APPLICATION_URL, credentials: true }));
+// Show backend URL in console
+console.log(`Backend running at: ${process.env.BACKEND_URL}`);
 
-// Parse JSON bodies
+// CORS setup
+const allowedOrigins = [
+  process.env.APPLICATION_URL,  // Frontend on Vercel
+  'http://localhost:5173'       // Local React dev
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
-// Root route to avoid 404 on backend root URL
+// Root route
 app.get('/', (req, res) => {
-  res.send('Backend server is running');
+  res.send(`Backend server is running at ${process.env.BACKEND_URL}`);
 });
 
-// Your API routes under /api/auth
 app.use('/api/auth', textRoute);
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
