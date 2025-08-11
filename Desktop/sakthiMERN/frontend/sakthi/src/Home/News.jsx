@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { FaHeart, FaCommentDots } from 'react-icons/fa';
-const BaseUrl = import.meta.env.BACKEND_URL;
+
+const BaseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const fetchTodos = async () => {
   const res = await fetch(`${BaseUrl}/api/auth/todoGet`);

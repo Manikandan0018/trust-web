@@ -9,7 +9,8 @@ import cause3 from '../cause3.jpg';
 
 // Optional: fallback gallery images
 const galleryImages = [c1, c2, c3, cause1, cause2, cause3];
-const BaseUrl = import.meta.env.BACKEND_URL;
+
+const BaseUrl = import.meta.env.VITE_BACKEND_URL;
 
 // Fetch events from backend
 const fetchEvents = async () => {

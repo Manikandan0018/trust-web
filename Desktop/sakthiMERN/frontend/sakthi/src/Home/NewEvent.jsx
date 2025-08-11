@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-const BaseUrl = import.meta.env.BACKEND_URL;
+
+const BaseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const fetchEvents = async () => {
   const res = await fetch(`${BaseUrl}/api/auth/getEvent`);
